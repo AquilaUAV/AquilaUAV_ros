@@ -1,0 +1,12 @@
+<package>
+  <description brief="AquilaUAV_ros">
+
+     AquilaUAV_ros
+
+  </description>
+  <author>d3dx13</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/AquilaUAV_ros</url>
+
+</package>
