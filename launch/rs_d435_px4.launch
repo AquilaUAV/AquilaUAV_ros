@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find mavros)/launch/px4.launch" >
+    <arg name="fcu_url" value="/dev/ttyACM0"/>
+  </include>
+
+  <arg name="filters" default=""/>
+  <arg name="initial_reset" default="true"/>
+
+  <arg name="enable_color"        default="false"/>
+  <arg name="color_width"         default="848"/>
+  <arg name="color_height"        default="480"/>
+  <arg name="color_fps"           default="30"/>
+
+  <arg name="enable_infra1"       default="true"/>
+  <arg name="enable_infra2"       default="false"/>
+  <arg name="infra_width"         default="848"/>
+  <arg name="infra_height"        default="480"/>
+  <arg name="infra_fps"           default="30"/>
+
+  <arg name="enable_confidence"   default="true"/>
+  <arg name="confidence_width"    default="848"/>
+  <arg name="confidence_height"   default="480"/>
+  <arg name="confidence_fps"      default="30"/>
+
+  <arg name="enable_depth"        default="true"/>
+  <arg name="depth_width"         default="848"/>
+  <arg name="depth_height"        default="480"/>
+  <arg name="depth_fps"           default="30"/>
+
+  <arg name="pointcloud_texture_stream" default="RS2_STREAM_INFRARED"/>
+
+  <arg name="camera_front" default="d435_front"/> 
+  <arg name="serial_no_camera_front" default="915112071968"/>
+  <arg name="tf_prefix_front" default="tf_prefix_d435_front"/>
+
+  <arg name="camera_middle" default="d435_middle"/> 
+  <arg name="serial_no_camera_middle" default="935322071051"/>
+  <arg name="tf_prefix_middle" default="tf_prefix_d435_middle"/>
+
+  <arg name="camera_bottom" default="d435_bottom"/>
+  <arg name="serial_no_camera_bottom" default="934222071082"/>
+  <arg name="tf_prefix_bottom" default="tf_prefix_d435_bottom"/>
+
+  <arg name="pitch_front" default="-0.08726646259"/>
+  <arg name="pitch_middle" default="0.78539816339"/>
+  <arg name="pitch_bottom" default="1.65806278939"/>
+
+  <arg name="dx_front_error" default="0.000"/>
+  <arg name="dx_middle_error" default="0.000"/>
+  <arg name="dx_bottom_error" default="0.000"/>
+
+  <arg name="dx_front" value="$(eval 0.026806336506369483 + 0.01369014467)"/>
+  <arg name="dz_front" value="$(eval 0.03761336336 - 0.026806336506369483)"/>
+  <arg name="dx_middle" value="$(eval 0.026806336506369483)"/>
+  <arg name="dz_middle" value="$(eval -0.026806336506369483)"/>
+  <arg name="dx_bottom" value="$(eval 0.026806336506369483 - 0.03761336336)"/>
+  <arg name="dz_bottom" value="$(eval - 0.026806336506369483 - 0.01369014467)"/>
+
+  <group ns="$(arg camera_front)">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+
+      <arg name="enable_infra1"       value="$(arg enable_infra1)"/>
+      <arg name="enable_infra2"       value="$(arg enable_infra2)"/>
+      <arg name="infra_width"         value="$(arg infra_width)"/>
+      <arg name="infra_height"        value="$(arg infra_height)"/>
+      <arg name="infra_fps"           value="$(arg infra_fps)"/>
+
+      <arg name="filters" value="$(arg filters)"/>
+
+      <arg name="serial_no"           value="$(arg serial_no_camera_front)"/>
+      <arg name="tf_prefix"           value="$(arg tf_prefix_front)"/>
+      <arg name="initial_reset"       value="$(arg initial_reset)"/>
+
+      <arg name="enable_confidence"   value="$(arg enable_confidence)"/>
+      <arg name="confidence_width"    default="$(arg confidence_width)"/>
+      <arg name="confidence_height"   default="$(arg confidence_height)"/>
+      <arg name="confidence_fps"      default="$(arg confidence_fps)"/>
+
+      <arg name="enable_color"        value="$(arg enable_color)"/>
+      <arg name="color_width"         default="$(arg color_width)"/>
+      <arg name="color_height"        default="$(arg color_height)"/>
+      <arg name="color_fps"           default="$(arg color_fps)"/>
+
+      <arg name="enable_depth"        value="$(arg enable_depth)"/>
+      <arg name="depth_width"         value="$(arg depth_width)"/>
+      <arg name="depth_height"        value="$(arg depth_height)"/>
+      <arg name="depth_fps"        value="$(arg depth_fps)"/>
+
+      <arg name="pointcloud_texture_stream" value="$(arg pointcloud_texture_stream)"/>
+
+    </include>
+  </group>
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="tf_prefix_d435_front_link_broadcaster" args="$(arg dx_front) 0.0 $(arg dz_front) 0.0 $(arg pitch_front) 3.14159265359 base_link tf_prefix_d435_front_link" />
+
+<node name="dynamic_reconfigure_node_front" pkg="dynamic_reconfigure" type="dynparam" args="set /d435_front/stereo_module/ emitter_enabled 0"/>
+
+</launch>

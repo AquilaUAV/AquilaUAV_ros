@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
   <arg name="filters" default=""/>
   <arg name="initial_reset" default="false"/>
@@ -158,9 +159,9 @@
   </group>
 
 
-<node pkg="tf2_ros" type="static_transform_publisher" name="tf_prefix_d435_front_link_broadcaster" args="$(arg dx_front) 0.0 $(arg dz_front) 0.0 $(arg pitch_front) 0.0 triple_camera_link tf_prefix_d435_front_link" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="tf_prefix_d435_middle_link_broadcaster" args="$(arg dx_middle) 0.0 $(arg dz_middle) 0.0 $(arg pitch_middle) 0.0 triple_camera_link tf_prefix_d435_middle_link" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="tf_prefix_d435_bottom_link_broadcaster" args="$(arg dx_bottom) 0.0 $(arg dz_bottom) 0.0 $(arg pitch_bottom) 0.0 triple_camera_link tf_prefix_d435_bottom_link" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="tf_prefix_d435_front_link_broadcaster" args="$(arg dx_front) 0.0 $(arg dz_front) 0.0 $(arg pitch_front) 3.14159265359 camera_link tf_prefix_d435_front_link" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="tf_prefix_d435_middle_link_broadcaster" args="$(arg dx_middle) 0.0 $(arg dz_middle) 0.0 $(arg pitch_middle) 3.14159265359 camera_link tf_prefix_d435_middle_link" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="tf_prefix_d435_bottom_link_broadcaster" args="$(arg dx_bottom) 0.0 $(arg dz_bottom) 0.0 $(arg pitch_bottom) 3.14159265359 camera_link tf_prefix_d435_bottom_link" />
 
 <node name="dynamic_reconfigure_node_front" pkg="dynamic_reconfigure" type="dynparam" args="set /d435_front/stereo_module/ emitter_enabled 0"/>
 <node name="dynamic_reconfigure_node_middle" pkg="dynamic_reconfigure" type="dynparam" args="set /d435_middle/stereo_module/ emitter_enabled 0"/>
