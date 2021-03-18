@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find AquilaUAV_ros)/launch/px4_imu.launch" />
+  <include file="$(find AquilaUAV_ros)/launch/rs_front_d435.launch" />
+</launch>

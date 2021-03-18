@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <launch>
 
-  <include file="$(find AquilaUAV_ros)/launch/px4_imu.launch" />
-
   <arg name="filters" default=""/>
   <arg name="initial_reset" default="false"/>
 
